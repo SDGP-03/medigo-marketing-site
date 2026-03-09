@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediGo Driver App Download</title>
+  <meta name="description" content="Download the MediGo driver app for ambulance drivers." />
+  <meta name="theme-color" content="#E53935" />
+  <link rel="icon" href="./assets/images/ambulance-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <style>
+    .driver-page {
+      padding: 40px 0 70px;
+    }
+
+    .driver-download-card {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .driver-download-card h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .driver-download-card p {
+      margin: 0 auto 24px;
+      max-width: 52ch;
+      color: var(--text-secondary);
+      font-size: 18px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .latest-release {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 22px;
+      background: var(--glass-bg);
+    }
+
+    .latest-release h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .release-meta {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .driver-download-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .android-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .release-list {
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .release-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .release-item h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+
+    .release-item p {
+      margin: 0;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .screenshots-block {
+      margin: 18px 0 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: var(--glass-bg);
+    }
+
+    .screenshots-block h3 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .screenshots-sub {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: left;
+      max-width: none;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .screenshot-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      aspect-ratio: 9 / 18;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(145deg, var(--surface), var(--bg-secondary));
+    }
+
+    .screenshot-card figcaption {
+      padding: 10px 12px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .driver-download-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+      text-align: left;
+    }
+
+    .info-block {
+      margin-top: 26px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .info-block h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    .info-block h3 {
+      margin: 18px 0 8px;
+      font-size: 20px;
+    }
+
+    .info-block p {
+      margin: 0 0 14px;
+      max-width: 70ch;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .review-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .review-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .feature-list,
+    .steps-list {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      color: var(--text-secondary);
+    }
+
+    .feature-list li,
+    .steps-list li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 8px 0 20px;
+    }
+
+    .meta-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: var(--glass-bg);
+    }
+
+    .meta-item .label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .meta-item .value {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .whats-new {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: var(--glass-bg);
+      margin-top: 8px;
+    }
+
+    .whats-new h4 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .whats-new .updated-at {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .whats-new ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-secondary);
+    }
+
+    .whats-new li {
+      margin-bottom: 8px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 700px) {
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .screenshots-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-menu" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" />
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path fill="currentColor" d="m9 6l6 6l-6 6V6Z" />
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M6.76 4.84L4.96 3.05l1.41-1.41l1.79 1.8L6.76 4.84ZM1 13h3v-2H1v2Zm10 10h2v-3h-2v3Zm9-10v-2h-3v2h3Zm-2.36-6.95l1.41-1.41l1.8 1.79l-1.41 1.41l-1.8-1.79ZM12 6a6 6 0 1 1 0 12a6 6 0 0 1 0-12Zm-1-5h2v3h-2V1ZM4.22 17.78l-1.8 1.79l1.41 1.41l1.79-1.8l-1.4-1.4ZM18.78 17.78l1.79 1.8l1.41-1.41l-1.8-1.79l-1.4 1.4Z" />
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79Z" />
+    </symbol>
+  </svg>
+
+  <header>
+    <a class="logo" href="index.html">
+      <img id="header-logo-light" src="./assets/images/ambulance-logo1.png" alt="ambulance-logo"
+        class="logo-img logo-light" />
+      <img id="header-logo-dark" src="./assets/images/ambulance-logo2.png" alt="ambulance-logo"
+        class="logo-img logo-dark" />
+    </a>
+    <nav id="nav" aria-label="Primary">
+      <a href="index.html#overview">Overview</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#download" aria-current="page">Driver App</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="actions">
+      <button class="btn btn-outline theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg width="18" height="18" class="sun">
+          <use href="#i-sun" />
+        </svg>
+        <svg width="18" height="18" class="moon">
+          <use href="#i-moon" />
+        </svg>
+      </button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+        <svg width="20" height="20">
+          <use href="#i-menu" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="driver-page">
+    <div class="container">
+      <section class="driver-download-card" aria-labelledby="driver-download-title">
+        <h1 id="driver-download-title">MediGo Driver App</h1>
+        <p>
+          Download the latest MediGo Android driver app. This page is version-ready and will keep future releases in
+          one place.
+        </p>
+
+        <section class="latest-release" aria-labelledby="latest-release-title">
+          <h2 id="latest-release-title">Latest Release: v1.0.0</h2>
+          <p class="release-meta">Android APK | Initial release | Release date: Mar 6, 2026</p>
+          <div class="driver-download-actions">
+            <a class="btn btn-primary"
+              href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/app-release.apk?alt=media&token=9f7e5827-1c1a-4cfd-a7e0-a17cd33dbfe7"
+              target="_blank" rel="noopener noreferrer">
+              <svg class="android-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor"
+                  d="M7.4 4.2L6 1.8l.8-.5l1.4 2.4A8.8 8.8 0 0 1 12 3c1.3 0 2.6.3 3.8.7l1.4-2.4l.8.5l-1.4 2.4A8.9 8.9 0 0 1 21 11H3a8.9 8.9 0 0 1 4.4-6.8ZM9 8a.8.8 0 1 0 0-1.6A.8.8 0 0 0 9 8Zm6 0a.8.8 0 1 0 0-1.6A.8.8 0 0 0 15 8ZM4 12h2v6.5a1.5 1.5 0 0 0 3 0V12h1v8.5a1.5 1.5 0 0 0 3 0V12h1v6.5a1.5 1.5 0 0 0 3 0V12h2v6.5a3.5 3.5 0 0 1-7 0v-2.1a3.5 3.5 0 0 1-7 0V12Z" />
+              </svg>
+              Download for Android (.apk)
+            </a>
+          </div>
+        </section>
+
+        <ul class="release-list" aria-label="App release history">
+          <li class="release-item">
+            <div>
+              <h3>v1.0.0</h3>
+              <p>Released on Mar 6, 2026 - First public MediGo driver app release.</p>
+            </div>
+            <a class="btn btn-outline"
+              href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/app-release.apk?alt=media&token=9f7e5827-1c1a-4cfd-a7e0-a17cd33dbfe7"
+              target="_blank" rel="noopener noreferrer">
+              Download
+            </a>
+          </li>
+          <!-- Add future versions here by copying one .release-item block -->
+        </ul>
+
+        <div class="driver-download-actions">
+          <a class="btn btn-outline" href="index.html#download">Back to Access Options</a>
+        </div>
+        <p class="driver-download-note">If the download does not start, open this page on an Android device.</p>
+
+        <section class="screenshots-block" aria-labelledby="screenshots-title">
+          <h3 id="screenshots-title">App Screenshots</h3>
+          <p class="screenshots-sub">
+            Add your latest driver app screenshots below by replacing image files in each card.
+          </p>
+          <div class="screenshots-grid">
+            <figure class="screenshot-card">
+              <img src="./assets/images/mobile-app.png" alt="Driver app screenshot 1" loading="lazy" />
+              <figcaption>Home and assignment overview</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+              <img src="./assets/images/dashboard.png" alt="Driver app screenshot 2" loading="lazy" />
+              <figcaption>Live navigation and route support</figcaption>
+            </figure>
+            <figure class="screenshot-card">
+              <img src="./assets/images/dispatch-console.png" alt="Driver app screenshot 3" loading="lazy" />
+              <figcaption>Trip status update workflow</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <article class="info-block" aria-labelledby="about-driver-app">
+          <h2 id="about-driver-app">About MediGo Driver App</h2>
+          <div class="review-meta">
+            <span class="review-avatar" aria-hidden="true">MW</span>
+            <span>Reviewed by MediGo Product Team</span>
+          </div>
+          <p>
+            MediGo Driver App helps ambulance drivers receive assignments fast, navigate to pickup locations, and share
+            live trip status with hospitals. It is designed for daily field use with a simple interface and low-friction
+            workflow.
+          </p>
+
+          <h3>Key Features</h3>
+          <ul class="feature-list">
+            <li><strong>Live assignment alerts:</strong> Get immediate notifications for new dispatch requests.</li>
+            <li><strong>Integrated navigation:</strong> Open destination routes quickly to reduce response delays.</li>
+            <li><strong>Trip status updates:</strong> Share en route, arrived, and completed status in real time.</li>
+            <li><strong>Driver-focused UI:</strong> Large actions and clear screens for use during active operations.</li>
+            <li><strong>Release-based updates:</strong> New app versions are published on this page with history.</li>
+          </ul>
+
+          <h3>Trust and Safety</h3>
+          <p>
+            The app is built for operational reliability and clear communication between drivers and dispatch teams.
+            Drivers can verify assignment details before confirming actions, helping reduce route confusion and handling
+            errors.
+          </p>
+
+          <h3>Privacy Notes</h3>
+          <p>
+            MediGo uses only the permissions needed for dispatch communication, phone operation, and location-based trip
+            updates. Access can be reviewed and managed in Android settings based on your organization policy.
+          </p>
+
+          <h3>How to Use on Android</h3>
+          <ol class="steps-list">
+            <li>Download the latest APK from the release section above.</li>
+            <li>Install the app and sign in with your approved driver account.</li>
+            <li>Allow required permissions for calls, notifications, and location.</li>
+            <li>Keep internet and GPS enabled during active duty shifts.</li>
+            <li>Accept assignments and update trip status from within the app.</li>
+          </ol>
+
+          <h3>Support</h3>
+          <p>
+            For deployment support, account setup, or issue reporting, contact your MediGo administrator or dispatch
+            operations team.
+          </p>
+
+          <h3>Additional App Information</h3>
+          <div class="meta-grid" aria-label="Additional app information">
+            <div class="meta-item">
+              <span class="label">Latest Version</span>
+              <span class="value">v1.0.0</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Release Date</span>
+              <span class="value">Mar 6, 2026</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Uploaded By</span>
+              <span class="value">MediGo Team</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Requires Android</span>
+              <span class="value">Android 8.0+</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Category</span>
+              <span class="value">Free Medical Operations App</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Content Rating</span>
+              <span class="value">Everyone</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">Report</span>
+              <span class="value">Flag as inappropriate</span>
+            </div>
+          </div>
+
+          <div class="whats-new" aria-label="Latest release changelog">
+            <h4>What's New in the Latest Version</h4>
+            <p class="updated-at">Last updated on Mar 6, 2026</p>
+            <ul>
+              <li>Initial public release of the MediGo Driver App for Android.</li>
+              <li>Live assignment alerts with streamlined accept and status update flow.</li>
+              <li>Improved navigation launch and clearer trip lifecycle progress states.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-row">
+            <img id="footer-logo-light" src="./assets/images/ambulance-logo1.png" alt="ambulance-logo"
+              class="logo-img logo-light" />
+            <img id="footer-logo-dark" src="./assets/images/ambulance-logo2.png" alt="ambulance-logo"
+              class="logo-img logo-dark" />
+          </div>
+          <p class="note">
+            A hospital-led ambulance coordination platform. Built as a Year 2
+            group project (BSc Hons CS), University of Westminster.
+          </p>
+          <div class="footer-social">
+            <a class="btn btn-outline sm" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-outline sm" href="https://github.com/SDGP-03/MediGo" target="_blank"
+              rel="noopener">GitHub</a>
+            <a class="btn btn-outline sm" href="#" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#overview">Overview</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#how">How it works</a></li>
+            <li><a href="index.html#screens">Screens</a></li>
+            <li><a href="index.html#download">Mobile App Preview</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#faq">Help Center</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Project report (PDF)</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Pitch deck</a></li>
+            <li><a href="#" target="_blank" rel="noopener">GitHub repository</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="index.html#contact">Become a partner</a></li>
+            <li>
+              <a href="https://www.westminster.ac.uk/" target="_blank" rel="noopener">University of Westminster</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#" target="_blank" rel="noopener">Privacy Policy</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Terms of Use</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>(c) <span id="year"></span> MediGo. All rights reserved.</div>
+        <div>Made with love by the MediGo Team.</div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="Back to top" title="Back to top">
+    <svg width="18" height="18" class="flip">
+      <use href="#i-arrow" />
+    </svg>
+  </button>
+</body>
+
+</html>
