@@ -46,6 +46,12 @@
           d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8s8 3.6 8 8s-3.6 8-8 8zm.5-13H11v6l5.2 3.2l.8-1.3l-4.5-2.7V7z"
         />
       </symbol>
+      <symbol id="i-android" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M17.6 9.48c-.44 0-.8-.36-.8-.8s.36-.8.8-.8s.8.36.8.8s-.36.8-.8.8zm-11.2 0c-.44 0-.8-.36-.8-.8s.36-.8.8-.8s.8.36.8.8s-.36.8-.8.8zM12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8s-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6s6 2.69 6 6s-2.69 6-6 6z"
+        />
+      </symbol>
       <symbol id="i-globe" viewBox="0 0 24 24">
         <path
           fill="currentColor"
@@ -197,43 +203,71 @@
               <div class="store-head">
                 <h2 id="screenshots-title">Screenshots</h2>
               </div>
-              <div
-                class="shots-scroller"
-                role="list"
-                aria-label="Driver app screenshots"
-              >
-                <figure class="screenshot-card" role="listitem">
-                  <img
-                    src="./assets/driver-application/start-screen.png"
-                    alt="Driver app start screen"
-                    loading="lazy"
-                  />
-                  <figcaption>Start screen</figcaption>
-                </figure>
-                <figure class="screenshot-card" role="listitem">
-                  <img
-                    src="./assets/driver-application/signIn-page.png"
-                    alt="Driver app sign in screen"
-                    loading="lazy"
-                  />
-                  <figcaption>Sign in</figcaption>
-                </figure>
-                <figure class="screenshot-card" role="listitem">
-                  <img
-                    src="./assets/driver-application/home-page.png"
-                    alt="Driver app home screen"
-                    loading="lazy"
-                  />
-                  <figcaption>Home</figcaption>
-                </figure>
-                <figure class="screenshot-card" role="listitem">
-                  <img
-                    src="./assets/driver-application/navigation-page.png"
-                    alt="Driver app navigation screen"
-                    loading="lazy"
-                  />
-                  <figcaption>Navigation</figcaption>
-                </figure>
+              <div class="shots-carousel" data-shots-carousel>
+                <button
+                  class="shots-arrow shots-arrow--left"
+                  type="button"
+                  data-shots-prev
+                  aria-label="Scroll screenshots left"
+                  aria-controls="driver-shots"
+                >
+                  <svg width="20" height="20" aria-hidden="true">
+                    <use href="#i-arrow" />
+                  </svg>
+                </button>
+
+                <div
+                  id="driver-shots"
+                  class="shots-scroller"
+                  role="list"
+                  aria-label="Driver app screenshots"
+                  tabindex="0"
+                >
+                  <figure class="screenshot-card" role="listitem">
+                    <img
+                      src="./assets/driver-application/start-screen.png"
+                      alt="Driver app start screen"
+                      loading="lazy"
+                    />
+                    <figcaption>Start screen</figcaption>
+                  </figure>
+                  <figure class="screenshot-card" role="listitem">
+                    <img
+                      src="./assets/driver-application/signIn-page.png"
+                      alt="Driver app sign in screen"
+                      loading="lazy"
+                    />
+                    <figcaption>Sign in</figcaption>
+                  </figure>
+                  <figure class="screenshot-card" role="listitem">
+                    <img
+                      src="./assets/driver-application/home-page.png"
+                      alt="Driver app home screen"
+                      loading="lazy"
+                    />
+                    <figcaption>Home</figcaption>
+                  </figure>
+                  <figure class="screenshot-card" role="listitem">
+                    <img
+                      src="./assets/driver-application/navigation-page.png"
+                      alt="Driver app navigation screen"
+                      loading="lazy"
+                    />
+                    <figcaption>Navigation</figcaption>
+                  </figure>
+                </div>
+
+                <button
+                  class="shots-arrow shots-arrow--right"
+                  type="button"
+                  data-shots-next
+                  aria-label="Scroll screenshots right"
+                  aria-controls="driver-shots"
+                >
+                  <svg width="20" height="20" aria-hidden="true">
+                    <use href="#i-arrow" />
+                  </svg>
+                </button>
               </div>
             </section>
 
@@ -381,74 +415,85 @@
                 Older versions are kept here for testing or rollback.
               </p>
               <ul class="release-list" aria-label="App release history">
-                <li class="release-item">
-                  <div>
-                    <div class="tag-row">
-                      <h3>v5</h3>
-                      <span class="tag latest">LATEST</span>
-                    </div>
+                <div class="release-item">
+                  <li>
+                    <h4>v5</h4>
+                    <span class="tag latest">LATEST</span>
                     <p>Latest build with enhanced navigation.</p>
-                  </div>
-                  <a
-                    class="btn btn-outline"
-                    href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V5%2Fapp-release.apk?alt=media&token=f9d496f9-10c6-4e24-abe0-0ac0d6ce223b"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                  </a>
-                </li>
-                <li class="release-item">
-                  <div>
-                    <div class="tag-row">
-                      <h3>v4</h3>
-                      <span class="tag">STABLE</span>
-                    </div>
+                    <a
+                      class="btn btn-outline"
+                      href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V5%2Fapp-release.apk?alt=media&token=f9d496f9-10c6-4e24-abe0-0ac0d6ce223b"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </li>
+                </div>
+
+                <div class="release-item">
+                  <li>
+                    <h4>v4</h4>
+                    <span class="tag">STABLE</span>
                     <p>Mobile app with Tamil language.</p>
-                  </div>
-                  <a
-                    class="btn btn-outline"
-                    href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V3%20-%20side%20menu%20real%2Fapp-release.apk?alt=media&token=8b266348-d9b0-4ea2-8836-aa9ffd51bd1b"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                  </a>
-                </li>
-                <li class="release-item">
-                  <div>
-                    <div class="tag-row">
-                      <h3>v3</h3>
-                      <span class="tag">STABLE</span>
-                    </div>
+                    <a
+                      class="btn btn-outline"
+                      href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V3%20-%20side%20menu%20real%2Fapp-release.apk?alt=media&token=8b266348-d9b0-4ea2-8836-aa9ffd51bd1b"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </li>
+                </div>
+
+                <div class="release-item">
+                  <li>
+                    <h4>v3</h4>
+                    <span class="tag">STABLE</span>
                     <p>Add side menu to all pages.</p>
-                  </div>
-                  <a
-                    class="btn btn-outline"
-                    href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V3%20-%20side%20menu%20real%2Fapp-release.apk?alt=media&token=8b266348-d9b0-4ea2-8836-aa9ffd51bd1b"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                  </a>
-                </li>
-                <li class="release-item">
-                  <div>
-                    <div class="tag-row">
-                      <h3>v2</h3>
-                      <span class="tag">STABLE</span>
-                    </div>
+                    <a
+                      class="btn btn-outline"
+                      href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V3%20-%20side%20menu%20real%2Fapp-release.apk?alt=media&token=8b266348-d9b0-4ea2-8836-aa9ffd51bd1b"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </li>
+                </div>
+
+                <div class="release-item">
+                  <li>
+                    <h4>v2</h4>
+                    <span class="tag">STABLE</span>
                     <p>Mobile app with Sinhala language.</p>
-                  </div>
-                  <a
-                    class="btn btn-outline"
-                    href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V2%20-%20Sinhala%2Fapp-release.apk?alt=media&token=349684bb-360c-4687-b5e1-8aa8b5900f0d"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                  </a>
-                </li>
+                    <a
+                      class="btn btn-outline"
+                      href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/App%20V2%20-%20Sinhala%2Fapp-release.apk?alt=media&token=349684bb-360c-4687-b5e1-8aa8b5900f0d"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </li>
+                </div>
+
+                <div class="release-item">
+                  <li>
+                    <h4>v1</h4>
+                    <span class="tag">STABLE</span>
+                    <p>First Release</p>
+                    <a
+                      class="btn btn-outline"
+                      href="https://firebasestorage.googleapis.com/v0/b/medigo-cs03.firebasestorage.app/o/app-release.apk?alt=media&token=9f7e5827-1c1a-4cfd-a7e0-a17cd33dbfe7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </li>
+                </div>
                 <!-- Add future versions here by copying one .release-item block -->
               </ul>
             </section>

@@ -191,6 +191,83 @@ const sliderRoot = document.querySelector('[data-slider="screens"]');
 let screensSlider = null;
 if (sliderRoot) screensSlider = new Slider(sliderRoot);
 
+// ========== HORIZONTAL SHOTS CAROUSEL (guarded) ==========
+(function initShotsCarousels() {
+  const carousels = document.querySelectorAll("[data-shots-carousel]");
+  if (!carousels.length) return;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const getStep = (scroller) => {
+    const items = Array.from(scroller.children).filter(
+      (el) => el.nodeType === 1
+    );
+    if (items.length >= 2) {
+      const delta = items[1].offsetLeft - items[0].offsetLeft;
+      if (delta > 0) return delta;
+    }
+    if (items.length === 1) return items[0].getBoundingClientRect().width;
+    return Math.max(240, Math.round(scroller.clientWidth * 0.85));
+  };
+
+  const updateState = (carousel, scroller, prevBtn, nextBtn) => {
+    const maxLeft = scroller.scrollWidth - scroller.clientWidth;
+    const left = scroller.scrollLeft;
+    const atStart = left <= 2;
+    const atEnd = left >= maxLeft - 2;
+    const overflow = maxLeft > 2;
+
+    prevBtn.disabled = !overflow || atStart;
+    nextBtn.disabled = !overflow || atEnd;
+    carousel.classList.toggle("is-overflowing", overflow);
+  };
+
+  carousels.forEach((carousel) => {
+    const scroller = carousel.querySelector(".shots-scroller");
+    const prevBtn = carousel.querySelector("[data-shots-prev]");
+    const nextBtn = carousel.querySelector("[data-shots-next]");
+    if (!scroller || !prevBtn || !nextBtn) return;
+
+    if (prefersReducedMotion) scroller.style.scrollBehavior = "auto";
+
+    let step = getStep(scroller);
+
+    const scrollByStep = (dir) => {
+      step = getStep(scroller);
+      const delta = dir * step;
+      try {
+        scroller.scrollBy({
+          left: delta,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      } catch {
+        scroller.scrollLeft += delta;
+      }
+    };
+
+    prevBtn.addEventListener("click", () => scrollByStep(-1));
+    nextBtn.addEventListener("click", () => scrollByStep(1));
+
+    scroller.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        scrollByStep(-1);
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        scrollByStep(1);
+      }
+    });
+
+    const onScroll = () => updateState(carousel, scroller, prevBtn, nextBtn);
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  });
+})();
+
 // ========== CONTACT FORM VALIDATION (guarded) ==========
 const form = document.getElementById("contactForm");
 const formMsg = document.getElementById("formMsg");
@@ -519,5 +596,4 @@ const animationObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 
 animatedElements.forEach(el => animationObserver.observe(el));
-
 

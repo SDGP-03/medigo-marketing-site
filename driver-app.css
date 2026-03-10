@@ -37,12 +37,10 @@
 }
 
 .android-icon {
-  width: 20px;
   height: 20px;
 }
 
 .driver-page {
-  padding: 40px 0 100px;
   position: relative;
   overflow: visible;
   background:
@@ -176,19 +174,83 @@
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding: 10px 0 20px;
+  padding: 10px 48px 20px;
   scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: var(--brand) transparent;
+  scroll-padding-inline: 48px;
+  scroll-behavior: smooth;
+}
+
+.shots-carousel {
+  position: relative;
+}
+
+.shots-arrow {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.shots-arrow:hover {
+  background: rgba(229, 57, 53, 0.18);
+  border-color: rgba(229, 57, 53, 0.5);
+}
+
+.shots-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.shots-arrow:focus-visible {
+  outline: 2px solid rgba(229, 57, 53, 0.7);
+  outline-offset: 2px;
+}
+
+.shots-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shots-arrow--left {
+  left: 8px;
+}
+
+.shots-arrow--left svg {
+  transform: rotate(180deg);
+}
+
+.shots-arrow--right {
+  right: 8px;
+}
+
+@media (hover: none) {
+  .shots-scroller {
+    padding: 10px 0 20px;
+    scroll-padding-inline: 0;
+  }
+
+  .shots-arrow {
+    display: none;
+  }
 }
 
 .shots-scroller::-webkit-scrollbar {
-  height: 6px;
-}
-
-.shots-scroller::-webkit-scrollbar-thumb {
-  background: var(--brand);
-  border-radius: 10px;
+  display: none;
 }
 
 .screenshot-card {
@@ -295,6 +357,27 @@
   line-height: 1.4;
 }
 
+.release-item {
+  margin: 20px;
+  padding: 0 16px 16px 32px;
+  border-radius: 16px;
+  border: 2px solid var(--card-border);
+  transition: border-color 0.3s ease;
+}
+
+.release-item:hover {
+  border-color: var(--brand);
+}
+
+.release-item li {
+  line-height: 1.5rem;
+}
+
+.store-versions ul {
+  padding: 0;
+  list-style: none;
+}
+
 @media (max-width: 900px) {
   .store-hero {
     grid-template-columns: 1fr;
@@ -312,5 +395,12 @@
   }
   .store-two-col {
     grid-template-columns: 1fr;
+  }
+  .release-item {
+    margin: 10px 0;
+    padding: 0 16px 16px;
+  }
+  .release-item li {
+    line-height: 1rem;
   }
 }
